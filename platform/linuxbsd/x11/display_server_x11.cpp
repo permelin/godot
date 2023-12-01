@@ -1128,6 +1128,11 @@ Size2i DisplayServerX11::screen_get_size(int p_screen) const {
 // It is not exposed through the API, accesses X11 internals,
 // and is much more complex, so this is a less complete simplified error X11 printer.
 int default_window_error_handler(Display *display, XErrorEvent *error) {
+	if (error->error_code == BadMatch && error->request_code == 42) {
+		// Ignore
+		return 0;
+	}
+
 	static char message[1024];
 	XGetErrorText(display, error->error_code, message, sizeof(message));
 
