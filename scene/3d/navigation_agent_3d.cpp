@@ -736,6 +736,9 @@ void NavigationAgent3D::_update_navigation() {
 	if (!target_position_submitted) {
 		return;
 	}
+	if (update_frame_id == Engine::get_singleton()->get_physics_frames()) {
+		return;
+	}
 
 	update_frame_id = Engine::get_singleton()->get_physics_frames();
 
