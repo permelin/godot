@@ -924,9 +924,11 @@ LightmapGI::BakeError LightmapGI::bake(Node *p_from_node, String p_image_data_pa
 	bounds.grow_by(bounds.size.length() * 0.001);
 
 	if (gen_probes == GENERATE_PROBES_DISABLED) {
-		// generate 8 probes on bound endpoints
-		for (int i = 0; i < 8; i++) {
-			probes_found.push_back(bounds.get_endpoint(i));
+		if (probes_found.size() < 8) {
+			// generate 8 probes on bound endpoints
+			for (int i = 0; i < 8; i++) {
+				probes_found.push_back(bounds.get_endpoint(i));
+			}
 		}
 	} else {
 		// detect probes from geometry
