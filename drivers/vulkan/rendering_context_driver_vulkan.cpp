@@ -298,7 +298,9 @@ VKAPI_ATTR VkBool32 VKAPI_CALL RenderingContextDriverVulkan::_debug_messenger_ca
 			print_line(error_message);
 			break;
 		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
-			WARN_PRINT(error_message);
+			if (!(p_callback_data->messageIdNumber == 0 && p_message_type == VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT && p_callback_data->objectCount == 1)) {
+				WARN_PRINT(error_message);
+			}
 			break;
 		case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
 			ERR_PRINT(error_message);
